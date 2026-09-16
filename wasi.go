@@ -43,7 +43,7 @@ func Definition() wago.PluginDefinition {
 	return wago.PluginDefinition{
 		ID:          ID,
 		Name:        "WASI",
-		Version:     "0.3.0",
+		Version:     "0.3.1",
 		Description: "Experimental bundle of Preview 1 and WASI 0.2 command imports.",
 		Stability:   wago.Experimental,
 		Compatibility: wago.Compatibility{

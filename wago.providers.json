@@ -6,7 +6,7 @@
       "definition": {
         "id": "github.com/wago-org/wasi",
         "name": "WASI",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "description": "Experimental bundle of Preview 1 and WASI 0.2 command imports.",
         "stability": "experimental",
         "compatibility": {
@@ -41,14 +41,14 @@
           }
         ]
       },
-      "definitionDigest": "sha256:4b26ef2d49fc4da737726a55bb3300b537ed86be34c7ad76a9b0f7b6c9454887"
+      "definitionDigest": "sha256:02b0d1f69348f368cf17bb51dd7206b879c67fbb07553250d393dc932df70729"
     },
     {
       "importPath": "github.com/wago-org/wasi/register",
       "definition": {
         "id": "github.com/wago-org/wasi/p1",
         "name": "WASI Preview 1",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "description": "Preview 1 for core WebAssembly modules.",
         "stability": "experimental",
         "compatibility": {
@@ -189,14 +189,14 @@
           "type": "object"
         }
       },
-      "definitionDigest": "sha256:f62a4eafba6d2b6fbd58d35f56738ea7d10d066154bdb871f9b382c277011c27"
+      "definitionDigest": "sha256:6a8d78bd6bcb7ca38a70b39917aef1b7f75d285eb84f2e828487215ee4eb9e9f"
     },
     {
       "importPath": "github.com/wago-org/wasi/register",
       "definition": {
         "id": "github.com/wago-org/wasi/p2",
         "name": "WASI Preview 2",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "description": "Experimental WASI 0.2 command host with fail-closed networking.",
         "stability": "experimental",
         "compatibility": {
@@ -359,7 +359,7 @@
           }
         ]
       },
-      "definitionDigest": "sha256:735cd1335c637be4ca5ec8baabff65fb0aa3ddd59d5168828f8406bfa2a84f62"
+      "definitionDigest": "sha256:a68e771477d6716c7bfc62e2e97f51afb8fdc21a76e71284b8d3ed693a91ab6e"
     }
   ]
 }

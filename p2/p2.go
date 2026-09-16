@@ -158,7 +158,7 @@ func Definition() wago.PluginDefinition {
 	return wago.PluginDefinition{
 		ID:          ID,
 		Name:        "WASI Preview 2",
-		Version:     "0.3.0",
+		Version:     "0.3.1",
 		Description: "Experimental WASI 0.2 command host with fail-closed networking.",
 		Stability:   wago.Experimental,
 		Compatibility: wago.Compatibility{
