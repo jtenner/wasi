@@ -59,7 +59,7 @@ func (h *preview1Harness) call(t *testing.T, name string, params ...uint64) uint
 	return uint32(results[0])
 }
 
-func (h *preview1Harness) memory() []byte { return h.in.Memory().Bytes() }
+func (h *preview1Harness) memory() []byte { return h.in.Memory().UnsafeBytes() }
 
 // preview1CallModule builds a tiny wasm module with one exported forwarding
 // function per WASI import. Tests can call the real public p1.Imports boundary

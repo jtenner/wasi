@@ -76,4 +76,4 @@ func Provider() wago.PluginProvider {
 }
 
 // Imports returns the raw Preview 1 host bundle for low-level instantiation.
-func Imports(cfg Config) wago.Imports { return core.Imports(Module, cfg) }
+func Imports(cfg Config) *wago.Imports { return core.Imports(Module, cfg) }
