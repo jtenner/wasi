@@ -178,10 +178,6 @@ func (e *Plugin) Register(reg *wago.Registrar) error {
 	if err != nil {
 		return err
 	}
-	m, err := imports.Module(e.module)
-	if err != nil {
-		return err
-	}
 	e.guard.resolver, err = reg.HostCallers()
 	if err != nil {
 		return err
@@ -199,7 +195,7 @@ func (e *Plugin) Register(reg *wago.Registrar) error {
 		}
 	}
 	for _, b := range e.bindings() {
-		m.Func(b.name, b.fn).Params(b.params...).Results(b.results...).Capability(b.cap).Docs(b.docs)
+		imports.HostFunc(e.module, b.name, b.callback()).Params(b.params...).Results(b.results...).Capability(b.cap).Docs(b.docs)
 	}
 	return reg.Lifecycle(wago.PluginLifecycle{Start: e.start, Stop: e.stop})
 }
@@ -225,30 +221,38 @@ func (e *Plugin) stop(context.Context) error {
 // Imports again for each additional instance. This API intentionally remains
 // available for embedders that do not use Runtime.LoadPlugins. Plugin policy,
 // lifecycle cleanup, and runtime-scoped argv apply only to Provider.
-func Imports(module string, cfg Config) wago.Imports {
+func Imports(module string, cfg Config) *wago.Imports {
 	e := &Plugin{module: module, cfg: cloneConfig(cfg)}
 	e.resetFS()
 	_ = e.initFS(false) // raw imports cannot report mount initialization errors
 	return e.Imports()
 }
 
-func (e *Plugin) Imports() wago.Imports {
-	out := make(wago.Imports)
+func (e *Plugin) Imports() *wago.Imports {
+	out := wago.NewImports()
 	for _, b := range e.bindings() {
-		out[e.module+"."+b.name] = b.fn
+		out.HostFunc(e.module, b.name, b.callback()).Params(b.params...).Results(b.results...).Capability(b.cap).Docs(b.docs)
 	}
 	return out
 }
+
+type hostFunc func(wago.HostModule, []uint64, []uint64)
 
 // binding is one host function with its declared signature and docs. Register and
 // Imports both derive from bindings so the plugin and raw-bundle paths never drift.
 type binding struct {
 	name            string
 	handler         func(*Plugin, wago.HostModule, []uint64, []uint64)
-	fn              wago.HostFunc
+	fn              hostFunc
 	params, results []wago.ValType
 	cap             wago.Capability
 	docs            string
+}
+
+func (b binding) callback() wago.CallerHostCallFunc {
+	return func(caller wago.Caller, call wago.HostCall) {
+		b.fn(caller, call.ParamSlots(), call.ResultSlots())
+	}
 }
 
 type guestCapability struct {

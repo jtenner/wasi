@@ -43,4 +43,4 @@ func Definition() wago.PluginDefinition {
 
 func Provider() wago.PluginProvider { return core.Provider(Definition(), Module) }
 
-func Imports(cfg Config) wago.Imports { return core.Imports(Module, cfg) }
+func Imports(cfg Config) *wago.Imports { return core.Imports(Module, cfg) }
